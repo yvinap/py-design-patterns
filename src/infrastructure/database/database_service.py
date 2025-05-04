@@ -6,6 +6,7 @@ from src.models.device import Device
 class DatabaseService:
     def __init__(self, provider=None):
         self.provider = provider or FileDatabaseProvider()
+        print("DatabaseService initialized")
    
     def create_device(self, device: Device) -> Device:
         """Create a new device"""
