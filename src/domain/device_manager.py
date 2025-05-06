@@ -4,14 +4,12 @@ from src.domain.factories.device_factory import DeviceFactory
 from src.domain.repositories.device_repository import DeviceRepository
 from src.models.device import Device
 from ..logger_system.loggers.application_logger import ApplicationLogger
-from ..logger_system.backends.console_log_implementation import ConsoleLogImplementation
 
 class DeviceManager:
-    def __init__(self, repository=None, factory=None):
-        self.repository = DeviceRepository()
-        self.factory = DeviceFactory()
-        console_log_impl = ConsoleLogImplementation()
-        self.logger=ApplicationLogger(console_log_impl)
+    def __init__(self, logger:ApplicationLogger):
+        self.logger=logger
+        self.repository = DeviceRepository(self.logger)
+        self.factory = DeviceFactory(self.logger)
         self.logger.info("DeviceManager initialized")
    
     def add_device(self, name: str, model: str, vendor: str, type: str) -> Device:

@@ -3,13 +3,11 @@ from typing import List, Optional
 from src.infrastructure.database.database_service import DatabaseService
 from src.models.device import Device
 from ...logger_system.loggers.application_logger import ApplicationLogger
-from ...logger_system.backends.console_log_implementation import ConsoleLogImplementation
 
 class DeviceRepository:
-    def __init__(self, database_service=None):
-        self.db_service = DatabaseService()
-        console_log_impl = ConsoleLogImplementation()
-        self.logger=ApplicationLogger(console_log_impl)
+    def __init__(self, logger:ApplicationLogger):
+        self.db_service = DatabaseService(logger)
+        self.logger=logger
    
     def add(self, device: Device) -> Device:
         """Add a new device"""

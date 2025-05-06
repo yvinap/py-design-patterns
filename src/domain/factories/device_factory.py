@@ -1,12 +1,10 @@
 from datetime import datetime
 from src.models.device import Device
 from ...logger_system.loggers.application_logger import ApplicationLogger
-from ...logger_system.backends.console_log_implementation import ConsoleLogImplementation
 
 class DeviceFactory:
-    def __init__(self):
-        console_log_impl = ConsoleLogImplementation()
-        self.logger=ApplicationLogger(console_log_impl)
+    def __init__(self,logger:ApplicationLogger):
+        self.logger=logger
     
     def create_device(self,name: str, model: str, vendor: str, type: str) -> Device:
         """Create a new device instance"""

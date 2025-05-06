@@ -4,15 +4,13 @@ from datetime import datetime
 from typing import Dict, List, Optional
 from uuid import uuid4
 from ...logger_system.loggers.application_logger import ApplicationLogger
-from ...logger_system.backends.console_log_implementation import ConsoleLogImplementation
 from src.models.device import Device
 
 class FileDatabaseProvider:
-    def __init__(self, db_path: str = "data/devices.json"):
+    def __init__(self, logger:ApplicationLogger, db_path: str = "data/devices.json"):
         self.db_path = db_path
         self._ensure_db_exists()
-        console_log_impl = ConsoleLogImplementation()
-        self.logger=ApplicationLogger(console_log_impl)
+        self.logger=logger
         self.logger.info(f"FileDatabaseProvider initialized. Filepath {db_path}")
    
     def _ensure_db_exists(self) -> None:

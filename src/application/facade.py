@@ -1,15 +1,24 @@
+import os
 from typing import Dict, List, Optional
 
 from src.domain.device_manager import DeviceManager
-from src.models.device import Device
 from ..logger_system.loggers.application_logger import ApplicationLogger
+from ..logger_system.backends.file_log_implementation import FileLogImplementation
 from ..logger_system.backends.console_log_implementation import ConsoleLogImplementation
+
 class ApplicationFacade:
-    def __init__(self, device_manager=None):
-        self.device_manager = DeviceManager()
-        console_log_impl = ConsoleLogImplementation()
-        self.logger=ApplicationLogger(console_log_impl)
-   
+    def __init__(self):
+        log_impl = None
+        logger_type = os.environ.get("LOGGER_TYPE","CONSOLE")
+        if logger_type.__eq__("FILE"):
+            log_impl = FileLogImplementation()
+        else:
+            log_impl = ConsoleLogImplementation()
+        logger=ApplicationLogger(log_impl)
+        self.logger=logger
+        self.logger.info("Application Facade Initialized")
+        self.device_manager = DeviceManager(self.logger)
+        
     def add_device(self, name: str, model: str, vendor: str, type: str) -> Dict:
         """Add a new device"""
         try:
@@ -33,6 +42,7 @@ class ApplicationFacade:
     def get_all_devices(self) -> Dict:
         """Get all devices"""
         try:
+            self.logger.warning(f"get_all_devices. test warning")
             devices = self.device_manager.get_all_devices()
             return {"success": True, "data": [device.__dict__ for device in devices]}
         except Exception as e:
