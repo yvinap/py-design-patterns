@@ -5,13 +5,17 @@ from src.domain.device_manager import DeviceManager
 from ..logger_system.loggers.application_logger import ApplicationLogger
 from ..logger_system.backends.file_log_implementation import FileLogImplementation
 from ..logger_system.backends.console_log_implementation import ConsoleLogImplementation
-
+from ..logger_system.adapters.cloud import CloudLogAdapter
 class ApplicationFacade:
     def __init__(self):
         log_impl = None
         logger_type = os.environ.get("LOGGER_TYPE","CONSOLE")
         if logger_type.__eq__("FILE"):
             log_impl = FileLogImplementation()
+        elif logger_type.__eq__("CLOUD"):
+            api_key = os.environ.get("CLOUD_API_KEY","C_API_KEY")
+            cloud_watch_source = os.environ.get("CLOUD_WATCH_SOURCE","C_SOURCE")
+            log_impl = CloudLogAdapter(api_key=api_key,source_system=cloud_watch_source)
         else:
             log_impl = ConsoleLogImplementation()
         logger=ApplicationLogger(log_impl)
