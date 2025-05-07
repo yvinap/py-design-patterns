@@ -5,6 +5,7 @@ class DeviceFactory:
     @staticmethod
     def create_device(name: str, model: str, vendor: str, type: str) -> Device:
         """Create a new device instance"""
+        print(f"creating new device {name}-{model}-{vendor}-{type}")
         return Device(
             name=name,
             model=model,
@@ -15,6 +16,7 @@ class DeviceFactory:
     @staticmethod
     def update_device(device: Device, **kwargs) -> Device:
         """Update device fields"""
+        print(f"updating device {device.id}")
         for key, value in kwargs.items():
             if hasattr(device, key):
                 setattr(device, key, value)

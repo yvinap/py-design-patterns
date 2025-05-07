@@ -8,10 +8,12 @@ class DeviceManager:
     def __init__(self, repository=None, factory=None):
         self.repository = repository or DeviceRepository()
         self.factory = factory or DeviceFactory()
+        print("DeviceManager initialized")
    
     def add_device(self, name: str, model: str, vendor: str, type: str) -> Device:
         """Add a new device"""
         device = self.factory.create_device(name, model, vendor, type)
+        print("adding device to repository")
         return self.repository.add(device)
    
     def get_device(self, device_id: str) -> Optional[Device]:
@@ -26,6 +28,7 @@ class DeviceManager:
         """Update an existing device"""
         device = self.repository.get(device_id)
         if not device:
+            print(f"device not found {device_id}")
             return None
        
         updated_device = self.factory.update_device(device, **kwargs)
@@ -33,4 +36,5 @@ class DeviceManager:
    
     def delete_device(self, device_id: str) -> bool:
         """Delete a device by ID"""
+        print(f"deleting devices from repository {device_id}")
         return self.repository.delete(device_id)

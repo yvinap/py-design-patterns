@@ -13,6 +13,7 @@ class ApplicationFacade:
             device = self.device_manager.add_device(name, model, vendor, type)
             return {"success": True, "data": device.__dict__}
         except Exception as e:
+            print(f"Exception in add_device. {name}-{model}-{vendor}-{type} {str(e)}")
             return {"success": False, "error": str(e)}
    
     def get_device(self, device_id: str) -> Dict:
@@ -23,6 +24,7 @@ class ApplicationFacade:
                 return {"success": False, "error": "Device not found"}
             return {"success": True, "data": device.__dict__}
         except Exception as e:
+            print(f"Exception in get_device. {str(e)}")
             return {"success": False, "error": str(e)}
    
     def get_all_devices(self) -> Dict:
@@ -31,6 +33,7 @@ class ApplicationFacade:
             devices = self.device_manager.get_all_devices()
             return {"success": True, "data": [device.__dict__ for device in devices]}
         except Exception as e:
+            print(f"Exception in get_all_devices. {str(e)}")
             return {"success": False, "error": str(e)}
    
     def update_device(self, device_id: str, **kwargs) -> Dict:
@@ -41,6 +44,7 @@ class ApplicationFacade:
                 return {"success": False, "error": "Device not found"}
             return {"success": True, "data": device.__dict__}
         except Exception as e:
+            print(f"Exception in update_device {device_id} {str(e)}")
             return {"success": False, "error": str(e)}
    
     def delete_device(self, device_id: str) -> Dict:
@@ -51,4 +55,5 @@ class ApplicationFacade:
                 return {"success": False, "error": "Device not found"}
             return {"success": True}
         except Exception as e:
+            print(f"Exception in delete_device {device_id} {str(e)}")
             return {"success": False, "error": str(e)}

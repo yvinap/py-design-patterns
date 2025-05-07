@@ -10,13 +10,17 @@ class FileDatabaseProvider:
     def __init__(self, db_path: str = "data/devices.json"):
         self.db_path = db_path
         self._ensure_db_exists()
+        print(f"FileDatabaseProvider initialized. Filepath {db_path}")
    
     def _ensure_db_exists(self) -> None:
         """Create database file and parent directories if they don't exist"""
-        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
-        if not os.path.exists(self.db_path):
-            with open(self.db_path, "w") as f:
-                json.dump({"devices": {}}, f)
+        try:
+            os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+            if not os.path.exists(self.db_path):
+                with open(self.db_path, "w") as f:
+                    json.dump({"devices": {}}, f)
+        except Exception as e:    
+            print(f"exception while creation of file database {str(e)}")
    
     def _read_db(self) -> Dict:
         """Read database file"""
@@ -25,8 +29,11 @@ class FileDatabaseProvider:
    
     def _write_db(self, data: Dict) -> None:
         """Write to database file"""
-        with open(self.db_path, "w") as f:
-            json.dump(data, f, default=str)
+        try:
+            with open(self.db_path, "w") as f:
+                json.dump(data, f, default=str)
+        except Exception as e:    
+            print(f"exception while writing to file database {str(e)}")
    
     def create(self, device: Device) -> Device:
         """Create a new device entry"""
@@ -43,6 +50,7 @@ class FileDatabaseProvider:
         data = self._read_db()
         device_data = data["devices"].get(device_id)
         if not device_data:
+            print(f"no device data {device_id}")
             return None
         return Device(**device_data)
    
