@@ -3,14 +3,15 @@ import os
 from datetime import datetime
 from typing import Dict, List, Optional
 from uuid import uuid4
-
+from ...logger_system.loggers.application_logger import ApplicationLogger
 from src.models.device import Device
 
 class FileDatabaseProvider:
-    def __init__(self, db_path: str = "data/devices.json"):
+    def __init__(self, logger:ApplicationLogger, db_path: str = "data/devices.json"):
         self.db_path = db_path
         self._ensure_db_exists()
-        print(f"FileDatabaseProvider initialized. Filepath {db_path}")
+        self.logger=logger
+        self.logger.info(f"FileDatabaseProvider initialized. Filepath {db_path}")
    
     def _ensure_db_exists(self) -> None:
         """Create database file and parent directories if they don't exist"""
@@ -20,7 +21,7 @@ class FileDatabaseProvider:
                 with open(self.db_path, "w") as f:
                     json.dump({"devices": {}}, f)
         except Exception as e:    
-            print(f"exception while creation of file database {str(e)}")
+            self.logger.error(f"exception while creation of file database", e)
    
     def _read_db(self) -> Dict:
         """Read database file"""
@@ -33,7 +34,7 @@ class FileDatabaseProvider:
             with open(self.db_path, "w") as f:
                 json.dump(data, f, default=str)
         except Exception as e:    
-            print(f"exception while writing to file database {str(e)}")
+            self.logger.error(f"exception while writing to file database", e)
    
     def create(self, device: Device) -> Device:
         """Create a new device entry"""
@@ -50,7 +51,7 @@ class FileDatabaseProvider:
         data = self._read_db()
         device_data = data["devices"].get(device_id)
         if not device_data:
-            print(f"no device data {device_id}")
+            self.logger.info(f"no device data {device_id}")
             return None
         return Device(**device_data)
    

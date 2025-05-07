@@ -2,10 +2,12 @@ from typing import List, Optional
 
 from src.infrastructure.database.database_service import DatabaseService
 from src.models.device import Device
+from ...logger_system.loggers.application_logger import ApplicationLogger
 
 class DeviceRepository:
-    def __init__(self, database_service=None):
-        self.db_service = database_service or DatabaseService()
+    def __init__(self, logger:ApplicationLogger):
+        self.db_service = DatabaseService(logger)
+        self.logger=logger
    
     def add(self, device: Device) -> Device:
         """Add a new device"""

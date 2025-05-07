@@ -2,8 +2,10 @@ from flask import Blueprint, jsonify, request
 
 from src.api.validators import validate_device_data
 from src.application.facade import ApplicationFacade
+from ..logger_system.loggers.application_logger import ApplicationLogger
 
 api = Blueprint("api", __name__)
+
 facade = ApplicationFacade()
 
 @api.route("/devices", methods=["POST"])

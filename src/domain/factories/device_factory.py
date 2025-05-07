@@ -1,11 +1,14 @@
 from datetime import datetime
 from src.models.device import Device
+from ...logger_system.loggers.application_logger import ApplicationLogger
 
 class DeviceFactory:
-    @staticmethod
-    def create_device(name: str, model: str, vendor: str, type: str) -> Device:
+    def __init__(self,logger:ApplicationLogger):
+        self.logger=logger
+    
+    def create_device(self,name: str, model: str, vendor: str, type: str) -> Device:
         """Create a new device instance"""
-        print(f"creating new device {name}-{model}-{vendor}-{type}")
+        self.logger.info(f"creating new device {name}-{model}-{vendor}-{type}")
         return Device(
             name=name,
             model=model,
@@ -13,10 +16,9 @@ class DeviceFactory:
             type=type
         )
    
-    @staticmethod
-    def update_device(device: Device, **kwargs) -> Device:
+    def update_device(self,device: Device, **kwargs) -> Device:
         """Update device fields"""
-        print(f"updating device {device.id}")
+        self.logger.info(f"updating device {device.id}")
         for key, value in kwargs.items():
             if hasattr(device, key):
                 setattr(device, key, value)
