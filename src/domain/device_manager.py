@@ -17,6 +17,7 @@ class DeviceManager:
         """Add a new device"""
         device = self.factory.create_device(name, model, vendor, type)
         self.a_base.app_logger.info("adding device to repository")
+        self.a_base.user_change_logger.info(f"{device.name} Added")
         return self.repository.add(device)
    
     def get_device(self, device_id: str) -> Optional[Device]:
@@ -35,9 +36,11 @@ class DeviceManager:
             return None
        
         updated_device = self.factory.update_device(device, **kwargs)
+        self.a_base.user_change_logger.info(f"{device.name} Updated")
         return self.repository.update(updated_device)
    
     def delete_device(self, device_id: str) -> bool:
         """Delete a device by ID"""
         self.a_base.app_logger.info(f"deleting devices from repository {device_id}")
+        self.a_base.user_change_logger.delete_record_log_audit("Device",device_id)
         return self.repository.delete(device_id)

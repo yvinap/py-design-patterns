@@ -1,7 +1,1 @@
-{
-    "logs": {
-        "08/05/2025, 00:12:12.761477": "Writing to file: [INFO] User Change Log: onvif-cam-2 Added",
-        "08/05/2025, 00:12:51.722564": "Writing to file: [INFO] User Change Log: onvif-cam-4 Updated",
-        "08/05/2025, 00:13:36.488427": "Writing to file: [WARNING] *****Record Delete Audit Log: **** Device-44b38467-71b0-43c8-b5a1-a189132ba069 "
-    }
-}
+{"logs": {"08/05/2025, 00:12:12.761477": "Writing to file: [INFO] User Change Log: onvif-cam-2 Added", "08/05/2025, 00:12:51.722564": "Writing to file: [INFO] User Change Log: onvif-cam-4 Updated", "08/05/2025, 00:13:36.488427": "Writing to file: [WARNING] *****Record Delete Audit Log: **** Device-44b38467-71b0-43c8-b5a1-a189132ba069 ", "08/05/2025, 10:02:16.855907": "Writing to file: [INFO] User Change Log: onvif-cam-1 Added", "08/05/2025, 10:03:12.882782": "Writing to file: [INFO] User Change Log: onvif-cam-3 Updated", "08/05/2025, 10:03:21.495038": "Writing to file: [WARNING] *****Record Delete Audit Log: **** Device-9e157a87-2231-453b-9003-24c25772dab2 "}}

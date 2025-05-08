@@ -11,7 +11,6 @@ class DeviceRepository:
    
     def add(self, device: Device) -> Device:
         """Add a new device"""
-        self.a_base.user_change_logger.info(f"{device.name} Added")
         return self.db_service.create_device(device)
    
     def get(self, device_id: str) -> Optional[Device]:
@@ -24,10 +23,8 @@ class DeviceRepository:
    
     def update(self, device: Device) -> Optional[Device]:
         """Update an existing device"""
-        self.a_base.user_change_logger.info(f"{device.name} Updated")
         return self.db_service.update_device(device)
    
     def delete(self, device_id: str) -> bool:
         """Delete a device by ID"""
-        self.a_base.user_change_logger.delete_record_log_audit("Device",device_id)
         return self.db_service.delete_device(device_id)
