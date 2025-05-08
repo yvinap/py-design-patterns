@@ -1,5 +1,5 @@
 # Design Patterns - Bridge vs Adapter
-This repository shows the use of Bridge and Adapter Design Patterns. The application is a module of the surveillance system which deals with management of device objects. The module supports creation, update, deletion and listing of device objects. In order to run the application, clone the repository and run the application from the root directory. The application starts the API server. APIs can be called from command line using curl command or from postman. 
+This repository demonstrates the usage of Bridge and Adapter Design Patterns within a surveillance system module that manages device objects. The module supports creating, updating, deleting, and listing device objects. To run the application, clone the repository and execute it from the root directory. This will start the API server. APIs can be accessed via the command line using the curl command or through Postman. 
 Here is sample GET request: 
 http://127.0.0.1:5000/api/devices
 
