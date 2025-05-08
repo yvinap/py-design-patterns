@@ -2,12 +2,12 @@ from typing import List, Optional
 
 from src.infrastructure.providers.file_database_provider import FileDatabaseProvider
 from src.models.device import Device
-from ...logger_system.loggers.application_logger import ApplicationLogger
+from ...application.app_base import ApplicationBase
 class DatabaseService:
-    def __init__(self, logger:ApplicationLogger):
-        self.provider = FileDatabaseProvider(logger)
-        self.logger=logger
-        self.logger.info("DatabaseService initialized")
+    def __init__(self, a_base:ApplicationBase):
+        self.a_base=a_base
+        self.provider = FileDatabaseProvider(a_base)
+        self.a_base.app_logger.info("DatabaseService initialized")
    
     def create_device(self, device: Device) -> Device:
         """Create a new device"""
