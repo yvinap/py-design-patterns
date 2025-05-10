@@ -19,7 +19,14 @@ http://127.0.0.1:5000/api/devices
 ## Before Bridge Pattern
 Initial commit of the application had several log messages scattered throughout. The purpose of the log statements was to see how the message flow when the application us running.  The logging was mostly using the print statements scattered throughout the application. 
 Here is the [link](https://github.com/yvinap/py-design-patterns/blob/scatterred-logs/src/domain/device_manager.py) for git branch to show how the code looked like for the initial commit of the module. 
-
+### code sample
+Here is sample code inside device_manager.py file. Observe the print statement:
+```
+def delete_device(self, device_id: str) -> bool:
+    """Delete a device by ID"""
+    print(f"deleting devices from repository {device_id}")
+    return self.repository.delete(device_id)
+```
 ## 1. Bridge Pattern
 
 ### Problem it solves:
@@ -38,6 +45,15 @@ Introduction of Logging Component in application for structured logging
 
 ### Without Bridge Pattern:
 As you can see, without the bridge pattern there was no flexibility to modify the logging functionality. If any change was needed, it needs to be done in every file of the application where logging statements were implemented.
+
+### code sample
+see how the code look for same function after implementing bridge design pattern
+```
+def delete_device(self, device_id: str) -> bool:
+    """Delete a device by ID"""
+    self.a_base.app_logger.info(f"deleting devices from repository {device_id}")
+    return self.repository.delete(device_id)
+```
 
 ## 2. Adapter Pattern:
 ### Problem it solves:
@@ -58,3 +74,13 @@ As you can see, without the bridge pattern there was no flexibility to modify th
 ### Without Adapter Pattern:
 - If we had to support CloudLogService without Adapter Pattern, then we would need to modify the Bridge Pattern to accommodate new implementation
 - If the implantation interface would have to be changed the application code had to be modified all over where the logger implementation was used. This would have violated the Open/Close principle
+
+### code sample
+Here is same function after implementing the adapter design pattern
+```
+def delete_device(self, device_id: str) -> bool:
+    """Delete a device by ID"""
+    self.a_base.app_logger.info(f"deleting devices from repository {device_id}")
+    self.a_base.user_change_logger.delete_record_log_audit("Device",device_id)
+    return self.repository.delete(device_id)
+```
