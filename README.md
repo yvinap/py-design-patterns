@@ -1,5 +1,5 @@
 # Design Patterns - Bridge vs Adapter
-This repository demonstrates the usage of Bridge and Adapter Design Patterns within a surveillance system module that manages device objects. The module supports creating, updating, deleting, and listing device objects. For explaining the design patterns, I have used the logging component to explain importance of bridge and adapter design pattern. 
+This repository demonstrates the usage of Bridge and Adapter Design Patterns within a surveillance system module that manages device objects. The module supports creating, updating, deleting, and listing device objects. For explaining the design patterns, I have used the logging component to explain importance of bridge and adapter design pattern. Here is [link](https://github.com/yvinap/py-design-patterns/blob/main/design-patterns.png) for class diagram explaining the relationship between the classes.
 You will observe that there are three separate branches apart from main branch
 
 - scattered-logs: this branch shows, how the code for logging will look like without any design pattern
